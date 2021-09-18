@@ -1,0 +1,7 @@
+FROM node:lts
+
+WORKDIR /application
+
+EXPOSE 5000
+
+CMD [ "yarn", "dev" ]

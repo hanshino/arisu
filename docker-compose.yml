@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/application
+    networks:
+      - arisu_network
+
+  redis:
+    image: redis:alpine
+    command: "redis-server"
+    networks:
+      - arisu_network
+
+networks:
+  arisu_network:
