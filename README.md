@@ -1,4 +1,4 @@
-這個專案專門服務 [Rabu](!https://github.com/hanshino/Rabu) 的前端頁面，進行相關的動作紀錄，名為**Arisu**
+這個專案專門服務 [Rabu](https://github.com/hanshino/Rabu) 的前端頁面，進行相關的動作紀錄，名為**Arisu**
 
 # Arisu
 
