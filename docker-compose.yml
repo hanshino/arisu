@@ -4,6 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    ports:
+      - 5000:${APP_PORT}
+    env_file: ./.env
+    environment:
+      - PORT=${APP_PORT}
     volumes:
       - .:/application
     networks:
