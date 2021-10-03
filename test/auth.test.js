@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../src/app");
 const i18n = require("../src/util/i18n");
+const redis = require("../src/util/redis");
 
 describe("無token造訪頁面測試", function () {
   it("測試 auth/me", function (done) {
@@ -27,3 +28,11 @@ describe("無token造訪頁面測試", function () {
       });
   });
 });
+
+afterAll(async () => {
+  await cleanConnectedRedis(redis);
+});
+
+const cleanConnectedRedis = client => {
+  return client.quit();
+};

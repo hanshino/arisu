@@ -24,8 +24,8 @@ describe("開房路由測試", function () {
   });
 });
 
-afterAll(() => {
-  cleanConnectedRedis(redis);
+afterAll(async () => {
+  await cleanConnectedRedis(redis);
 });
 
 const cleanConnectedRedis = client => {
