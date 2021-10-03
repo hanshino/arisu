@@ -48,5 +48,15 @@ exports.make = attributes =>
  * @returns {Promise}
  */
 exports.save = room => {
-  return redis.set(this.genRoomKey(room.number), JSON.stringify(room), "EX", REDIS_EXPIRE_AFTER);
+  return redis.set(this.genRoomKey(room.number), JSON.stringify(room), { EX: REDIS_EXPIRE_AFTER });
+};
+
+/**
+ * Fetch all room list.
+ * @returns {Promise<Room[]>}
+ */
+exports.all = async () => {
+  let keys = await redis.keys(this.genRoomKey("*"));
+  let cacheData = keys.map(key => redis.get(key));
+  return (await Promise.all(cacheData)).map(data => JSON.parse(data));
 };
