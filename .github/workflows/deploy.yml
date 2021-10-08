@@ -20,5 +20,6 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
               cd application/arisu
-              git pull origin master
+              git checkout main
+              git pull origin main
               bash scripts/run-tasks.sh traefik-run
