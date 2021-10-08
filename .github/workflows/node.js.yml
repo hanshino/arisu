@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: "14"
           cache: "yarn"
-      - run: yarn install
-      - run: cp .env.test .env
-      - run: yarn test
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test
