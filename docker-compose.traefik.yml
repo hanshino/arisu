@@ -1,0 +1,39 @@
+version: "3.5"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:${APP_PORT}
+    env_file: ./.env
+    environment:
+      - PORT=${APP_PORT}
+    networks:
+      - arisu_network
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${PROJECT_NAME}_app-secure.rule=Host(`${APP_DOMAIN}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.${PROJECT_NAME}_app-secure.entrypoints=websecure"
+      - "traefik.http.routers.${PROJECT_NAME}_app-secure.tls=true"
+      - "traefik.http.routers.${PROJECT_NAME}_app-secure.tls.certresolver=leresolver"
+      - "traefik.docker.network=traefik"
+
+  redis:
+    image: redis:alpine
+    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
+    networks:
+      - arisu_network
+
+networks:
+  traefik:
+    external: true
+    name: traefik
+  arisu_network:
