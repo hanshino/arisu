@@ -1,0 +1,25 @@
+name: Application Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci-test:
+    uses: hanshino/arisu/.github/workflows/node.js.yml
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using ssh-key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          port: ${{ secrets.REMOTE_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd application/arisu
+            git checkout main
+            git pull origin main
+            bash scripts/run-tasks.sh traefik-run

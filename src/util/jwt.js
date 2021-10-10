@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 exports.secret = process.env.JWT_SECRET;
-exports.issuer = process.env.APP_DOMAIN;
+exports.issuer = `https://${process.env.APP_DOMAIN}`;
 
 /**
  * @param {String} token
