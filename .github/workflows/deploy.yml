@@ -2,7 +2,7 @@ name: Application Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   ci-test:
@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands using ssh-key
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.REMOTE_HOST }}
-            username: ${{ secrets.REMOTE_USERNAME }}
-            port: ${{ secrets.REMOTE_PORT }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-              cd application/arisu
-              git checkout main
-              git pull origin main
-              bash scripts/run-tasks.sh traefik-run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          port: ${{ secrets.REMOTE_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd application/arisu
+            git checkout main
+            git pull origin main
+            bash scripts/run-tasks.sh traefik-run
